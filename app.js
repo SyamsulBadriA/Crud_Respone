@@ -1,17 +1,19 @@
 const express = require("express");
+let jwt = require("jsonwebtoken");
 const cors = require("cors");
 const app = express();
 const PORT = 4000;
 
 const photoController = require("./controller/photoController");
-
-// const router = require("./routes");
+const UserController = require("./controller/user");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use("/photo", router);
+app.post("/login", UserController.userLogin);
+app.post("/user", UserController.createUser);
+
 app.get("/photos", photoController.getAllPhotos);
 app.get("/photos/:id", photoController.getIdPhotos);
 app.post("/photos", photoController.createPhotos);
